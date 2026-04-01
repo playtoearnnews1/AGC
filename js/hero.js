@@ -123,6 +123,7 @@
 
 // Hero entrance — called by preloader after reveal
 window.heroEntrance = function() {
+  document.querySelector('.hero-content').style.visibility = 'visible';
   const tl = gsap.timeline();
   tl.from('.hero-badge', { opacity: 0, y: 20, duration: 0.8, ease: "power3.out" })
     .from('.hero-title', { opacity: 0, y: 40, scale: 0.95, duration: 1, ease: "power3.out" }, "-=0.4")
