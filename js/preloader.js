@@ -282,7 +282,17 @@
     for (const coord of coords) {
       let p;
       if (pi < ptParticles.length) { p = ptParticles[pi]; p.isKilled = false; }
-      else { p = new Particle(); p.pos.x = Math.random() * ptW; p.pos.y = Math.random() * ptH; p.maxSpeed = Math.random() * 1.5 + 1.0; p.maxForce = p.maxSpeed * 0.03; p.colorBlendRate = Math.random() * 0.008 + 0.002; ptParticles.push(p); }
+      else {
+        p = new Particle();
+        p.pos.x = Math.random() * ptW;
+        p.pos.y = Math.random() * ptH;
+        // Faster on mobile so text forms before dispersal
+        const isMobile = ptW < 600;
+        p.maxSpeed = isMobile ? Math.random() * 3 + 2.5 : Math.random() * 1.5 + 1.0;
+        p.maxForce = p.maxSpeed * (isMobile ? 0.06 : 0.03);
+        p.colorBlendRate = isMobile ? Math.random() * 0.02 + 0.008 : Math.random() * 0.008 + 0.002;
+        ptParticles.push(p);
+      }
       p.startColor = { r: p.startColor.r + (p.targetColor.r - p.startColor.r) * p.colorWeight, g: p.startColor.g + (p.targetColor.g - p.startColor.g) * p.colorWeight, b: p.startColor.b + (p.targetColor.b - p.startColor.b) * p.colorWeight };
       p.targetColor = PT_COLOR; p.colorWeight = 0; p.target.x = coord.x; p.target.y = coord.y; pi++;
     }
