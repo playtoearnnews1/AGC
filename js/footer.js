@@ -28,7 +28,9 @@
     return (stageW - ballW) / 2;
   }
 
-  gsap.set(content, { opacity: 0, y: 30 });
+  // Hide each reveal element individually
+  var reveals = content.querySelectorAll('.footer-reveal');
+  gsap.set(reveals, { opacity: 0, y: 20 });
 
   ScrollTrigger.create({
     trigger: footer,
@@ -60,12 +62,13 @@
         });
 
 
-        // Content fades in
-        gsap.to(content, {
+        // Content reveals one by one
+        gsap.to(reveals, {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          delay: 1.5,
+          duration: 0.6,
+          delay: 2.1,
+          stagger: 0.2,
           ease: 'power3.out',
         });
       });
