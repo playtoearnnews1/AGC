@@ -1,62 +1,172 @@
-// Story section: header reveal + horizontal scroll + card animations
+// Branching adventure: start screen, typewriter, cinematic transitions, alien symbols
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Story header reveal
-gsap.from('.story-label', {
-  opacity: 0, y: 30, duration: 0.8,
-  scrollTrigger: { trigger: '.story-header', start: 'top 80%' }
-});
-gsap.from('.story-title', {
-  opacity: 0, y: 40, duration: 1,
-  scrollTrigger: { trigger: '.story-header', start: 'top 75%' }
-});
+(function() {
+  var viewport = document.getElementById('adventureViewport');
+  var isTransitioning = false;
+  var typewriterTimer = null;
 
-// Horizontal scroll
-const panels = gsap.utils.toArray('.story-panel');
-const track = document.querySelector('.story-track');
-const progressDots = document.querySelectorAll('.story-dot');
-const progressContainer = document.getElementById('storyProgress');
+  // --- Typewriter effect ---
+  function typewrite(el, text, speed, callback) {
+    el.textContent = '';
+    var cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    el.appendChild(cursor);
 
-const storyScroll = gsap.to(track, {
-  x: () => -(track.scrollWidth - window.innerWidth),
-  ease: "none",
-  scrollTrigger: {
-    trigger: '.story-track-wrapper',
-    pin: true,
-    scrub: 1,
-    end: () => "+=" + (track.scrollWidth - window.innerWidth),
-    onEnter: () => progressContainer.classList.add('active'),
-    onLeave: () => progressContainer.classList.remove('active'),
-    onEnterBack: () => progressContainer.classList.add('active'),
-    onLeaveBack: () => progressContainer.classList.remove('active'),
-    onUpdate: (self) => {
-      const activeIndex = Math.min(3, Math.floor(self.progress * 4));
-      progressDots.forEach((dot, i) => { dot.classList.toggle('active', i === activeIndex); });
+    var i = 0;
+    var charSpeed = speed || 18;
+
+    function tick() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i]), cursor);
+        i++;
+        typewriterTimer = setTimeout(tick, charSpeed);
+      } else {
+        cursor.remove();
+        if (callback) callback();
+      }
+    }
+    tick();
+  }
+
+  // --- Show choices with fade ---
+  function revealChoices(cardEl) {
+    var choices = cardEl.querySelector('.adventure-choices');
+    if (choices) choices.classList.add('visible');
+  }
+
+  // --- Alien symbol renderer ---
+  function renderAlienSymbols(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width = canvas.offsetWidth;
+    var h = canvas.height = canvas.offsetHeight;
+    if (w === 0 || h === 0) return;
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = '#39ff14';
+    ctx.lineWidth = 1.5;
+    ctx.lineCap = 'square';
+    var cellSize = 40, unit = cellSize * 0.2, r = 0.3, sz = 5;
+    for (var x = cellSize / 2; x < w; x += cellSize) {
+      for (var y = cellSize / 2; y < h; y += cellSize) {
+        ctx.save();
+        ctx.translate(x, y);
+        if (Math.random() > r) {
+          if (Math.random() > r) { ctx.beginPath(); ctx.moveTo(-unit, 0); ctx.lineTo(unit, 0); ctx.stroke(); }
+          if (Math.random() > r) { ctx.beginPath(); ctx.moveTo(0, -unit); ctx.lineTo(0, unit); ctx.stroke(); }
+        } else {
+          if (Math.random() > r) { ctx.beginPath(); ctx.moveTo(-unit, -unit); ctx.lineTo(unit, unit); ctx.stroke(); }
+          if (Math.random() > r) { ctx.beginPath(); ctx.moveTo(-unit, unit); ctx.lineTo(unit, -unit); ctx.stroke(); }
+        }
+        if (Math.random() > r) {
+          if (Math.random() > r + 0.2) { ctx.strokeRect(-sz, -sz, sz * 2, sz * 2); }
+          else { var rad = unit * 1.2; if (Math.random() > r) { ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2); ctx.stroke(); } }
+        }
+        if (Math.random() > r) { ctx.beginPath(); ctx.arc(0, 0, sz / 2, 0, Math.PI * 2); ctx.stroke(); }
+        for (var k = 0; k < 4; k++) { ctx.rotate(Math.PI / 2); if (Math.random() > r + 0.3) { ctx.beginPath(); ctx.arc(-unit * 1.4, 0, sz / 2, 0, Math.PI * 2); ctx.stroke(); } }
+        ctx.restore();
+      }
     }
   }
-});
 
-// Card entrance animations
-panels.forEach((panel) => {
-  const stepNum = panel.querySelector('.story-step-number');
-  const inner = panel.querySelector('.story-card-inner');
-  const orb = panel.querySelector('.story-orb');
+  // --- Activate a card: typewriter + symbols ---
+  function activateCard(cardEl) {
+    var textEl = cardEl.querySelector('.adventure-card-text');
+    var choices = cardEl.querySelector('.adventure-choices');
+    var canvas = cardEl.querySelector('.alien-symbols');
 
-  gsap.from(stepNum, {
-    opacity: 0, x: -60, duration: 0.8, ease: "power3.out",
-    scrollTrigger: { trigger: panel, containerAnimation: storyScroll, start: "left 70%", toggleActions: "play none none reverse" }
-  });
+    if (choices) choices.classList.remove('visible');
+    if (typewriterTimer) clearTimeout(typewriterTimer);
 
-  gsap.from(inner, {
-    opacity: 0, y: 40, scale: 0.96, duration: 0.9, ease: "power3.out",
-    scrollTrigger: { trigger: panel, containerAnimation: storyScroll, start: "left 65%", toggleActions: "play none none reverse" }
-  });
+    var storyText = textEl ? textEl.dataset.story : '';
 
-  if (orb) {
-    gsap.from(orb, {
-      opacity: 0, scale: 0.5, duration: 1.2, ease: "power2.out",
-      scrollTrigger: { trigger: panel, containerAnimation: storyScroll, start: "left 80%", toggleActions: "play none none reverse" }
-    });
+    if (textEl && storyText) {
+      typewrite(textEl, storyText, 18, function() {
+        revealChoices(cardEl);
+      });
+    } else if (choices) {
+      choices.classList.add('visible');
+    }
+
+    if (canvas) setTimeout(function() { renderAlienSymbols(canvas); }, 50);
   }
-});
+
+  // --- Scroll to viewport top ---
+  function snapToViewport() {
+    var top = viewport.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  // --- Cinematic transition ---
+  function goToCard(targetId) {
+    if (isTransitioning) return;
+
+    var currentEl = viewport.querySelector('.active');
+    var targetEl = viewport.querySelector('[data-card="' + targetId + '"]');
+    if (!currentEl || !targetEl || currentEl === targetEl) return;
+
+    isTransitioning = true;
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+
+    var isStart = currentEl.classList.contains('adventure-start');
+
+    // Get image and body for separate animation
+    var curImg = currentEl.querySelector('.adventure-card-img');
+    var curBody = currentEl.querySelector('.adventure-card-body');
+    var tarImg = targetEl.querySelector('.adventure-card-img');
+    var tarBody = targetEl.querySelector('.adventure-card-body');
+
+    var tl = gsap.timeline({
+      onComplete: function() {
+        isTransitioning = false;
+        activateCard(targetEl);
+      }
+    });
+
+    if (isStart) {
+      // Start screen: zoom in + fade
+      tl.to(currentEl, {
+        scale: 1.1, opacity: 0, duration: 0.6, ease: 'power2.in',
+        onComplete: function() {
+          currentEl.classList.remove('active');
+          gsap.set(currentEl, { clearProps: 'all' });
+        }
+      });
+    } else {
+      // Card exit: image slides left, body slides right
+      tl.to(curImg, { x: '-10%', opacity: 0, duration: 0.4, ease: 'power2.in' }, 0)
+        .to(curBody, { x: '10%', opacity: 0, duration: 0.4, ease: 'power2.in' }, 0)
+        .call(function() {
+          currentEl.classList.remove('active');
+          gsap.set([curImg, curBody], { clearProps: 'all' });
+        });
+    }
+
+    // Card enter: set up target
+    tl.call(function() {
+      targetEl.classList.add('active');
+      snapToViewport();
+    });
+
+    // Image enters from left, body enters from right
+    if (tarImg) {
+      tl.fromTo(tarImg, { x: '-8%', opacity: 0 }, { x: '0%', opacity: 1, duration: 0.6, ease: 'power3.out' });
+    }
+    if (tarBody) {
+      tl.fromTo(tarBody, { x: '8%', opacity: 0 }, { x: '0%', opacity: 1, duration: 0.6, ease: 'power3.out' }, '<0.1');
+    }
+    // If no sub-elements (start screen going to card), fade the whole thing
+    if (!tarImg && !tarBody) {
+      tl.fromTo(targetEl, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power3.out' });
+    }
+  }
+
+  // --- Event delegation ---
+  viewport.addEventListener('click', function(e) {
+    var startBtn = e.target.closest('.adventure-start-btn');
+    if (startBtn) { goToCard(startBtn.dataset.goto); return; }
+    var btn = e.target.closest('.adventure-btn');
+    if (btn && btn.dataset.goto) { goToCard(btn.dataset.goto); }
+  });
+})();

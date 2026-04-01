@@ -145,69 +145,152 @@
     </div>
   </section>
 
-  <!-- Story -->
+  <!-- Story — Branching Adventure -->
   <section id="story">
-    <div class="story-container">
-      <div class="story-header">
-        <div class="story-label">The Origin</div>
-        <h2 class="story-title">How It All Began</h2>
+    <div class="adventure-viewport" id="adventureViewport">
+
+      <!-- Start Screen -->
+      <div class="adventure-start active" data-card="start" id="adventureStart">
+        <div class="adventure-start-bg" style="background-image:url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1400&h=900&fit=crop');"></div>
+        <div class="adventure-start-content">
+          <div class="adventure-start-label">$GREENCAT presents</div>
+          <h2 class="adventure-start-title">The Cosmic<br/>Chronicles</h2>
+          <p class="adventure-start-sub">An interactive, branching origin story. Every choice shapes the fate of the galaxy's most powerful meme coin.</p>
+          <button class="adventure-start-btn" data-goto="1">Start Story</button>
+        </div>
       </div>
-      <div class="story-track-wrapper">
-        <div class="story-track">
-          <div class="story-panel">
-            <div class="story-orb" style="top:10%;right:10%;"></div>
-            <div class="story-card" data-step="1">
-              <div class="story-step-number">01</div>
-              <div class="story-card-inner">
-                <div class="story-icon">🌌</div>
-                <h3 class="story-card-title">The Crash Landing</h3>
-                <p class="story-card-desc">In the outer rim of the Solana nebula, a tiny green cat crash-landed on Earth inside a meteorite made of pure cryptographic energy. No one knew where it came from. No one could explain the glow.</p>
-              </div>
-            </div>
-          </div>
-          <div class="story-panel">
-            <div class="story-orb" style="bottom:15%;left:5%;"></div>
-            <div class="story-card" data-step="2">
-              <div class="story-step-number">02</div>
-              <div class="story-card-inner">
-                <div class="story-icon">🧬</div>
-                <h3 class="story-card-title">The Mutation</h3>
-                <p class="story-card-desc">Earth's atmosphere triggered a mutation — the cat's fur turned neon green and its eyes began emitting blockchain hashes. Every purr minted a token. Every meow was a transaction. The $GREENCAT was born.</p>
-              </div>
-            </div>
-          </div>
-          <div class="story-panel">
-            <div class="story-orb" style="top:20%;left:15%;"></div>
-            <div class="story-card" data-step="3">
-              <div class="story-step-number">03</div>
-              <div class="story-card-inner">
-                <div class="story-icon">📡</div>
-                <h3 class="story-card-title">The Signal</h3>
-                <p class="story-card-desc">The cat broadcasted a signal across every wallet on every chain. A single message in hex that decoded to: "Buy the dip, human." Thousands of degens answered the call within minutes.</p>
-              </div>
-            </div>
-          </div>
-          <div class="story-panel">
-            <div class="story-orb" style="bottom:10%;right:15%;"></div>
-            <div class="story-card" data-step="4">
-              <div class="story-step-number">04</div>
-              <div class="story-card-inner">
-                <div class="story-icon">🚀</div>
-                <h3 class="story-card-title">The Takeover</h3>
-                <p class="story-card-desc">Now $GREENCAT sits at the throne of meme coins — a community of believers, degens, and cosmic wanderers. Nine lives means nine rallies. This is only life one. The galaxy is watching.</p>
-              </div>
-            </div>
+
+      <!-- Card 1 -->
+      <div class="adventure-card" data-card="1">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 1 of 7</div>
+          <h3 class="adventure-card-title">The Crash Landing</h3>
+          <p class="adventure-card-text" data-story="A neon-green meteorite tears through the Solana nebula and slams into Earth's crust. The impact crater pulses with cryptographic energy. From the smoke, two glowing eyes blink open — something alien, something feline. The ground hums with a frequency no blockchain has ever recorded."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="2a">Investigate the glowing crater</button>
+            <button class="adventure-btn" data-goto="2b">Run to the nearest blockchain hub</button>
           </div>
         </div>
       </div>
-    </div>
-    <div class="story-progress" id="storyProgress">
-      <div class="story-dot active" data-dot="0"></div>
-      <div class="story-dot" data-dot="1"></div>
-      <div class="story-dot" data-dot="2"></div>
-      <div class="story-dot" data-dot="3"></div>
+
+      <!-- Card 2A -->
+      <div class="adventure-card" data-card="2a">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 2 of 7</div>
+          <h3 class="adventure-card-title">The Mutation</h3>
+          <p class="adventure-card-text" data-story="You approach the crater's edge. The green glow wraps around you like a living thing. The cat's fur ripples with neon light — Earth's atmosphere is triggering a mutation. Its eyes begin emitting blockchain hashes. Every purr mints a token. Every meow is a transaction. You feel the power coursing through the ground beneath your feet."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="3a">Harness the power</button>
+            <button class="adventure-btn" data-goto="3b">Try to warn the colony</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2B -->
+      <div class="adventure-card" data-card="2b">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 2 of 7</div>
+          <h3 class="adventure-card-title">The Signal</h3>
+          <p class="adventure-card-text" data-story="You sprint toward the nearest hub, but your wallet buzzes before you arrive. Every device in range is receiving the same transmission — alien symbols scrolling across screens, followed by a single message decoded from hex: &quot;Buy the dip, human.&quot; The signal is coming from the crater behind you."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="2a">Go back to the crater</button>
+            <button class="adventure-btn" data-goto="3c">Follow the degens gathering outside</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3A -->
+      <div class="adventure-card" data-card="3a">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 3 of 7</div>
+          <h3 class="adventure-card-title">The Awakening</h3>
+          <p class="adventure-card-text" data-story="You reach out and touch the cat. Energy floods through you — nine lifetimes of cosmic knowledge compressed into a single moment. You understand now: $GREENCAT isn't just a token. It's a key to a network that spans galaxies. The cat purrs. The blockchain ignites. A new era begins."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="4">Launch $GREENCAT to the galaxy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3B -->
+      <div class="adventure-card" data-card="3b">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 3 of 7</div>
+          <h3 class="adventure-card-title">The Warning</h3>
+          <p class="adventure-card-text" data-story="You try to warn the colony, but no one listens — they're too busy watching their wallets fill with tokens they never bought. The cat's signal is auto-minting $GREENCAT across every chain. There's no stopping this. You realize the only choice left is to go back and embrace what's already begun."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="3a">Return to the glow</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3C -->
+      <div class="adventure-card" data-card="3c">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">Chapter 3 of 7</div>
+          <h3 class="adventure-card-title">The Community Rises</h3>
+          <p class="adventure-card-text" data-story="Thousands of degens have gathered, phones in hand, wallets connected. The energy is electric. Someone shouts &quot;Nine lives means nine rallies!&quot; and the crowd erupts. You're not just early — you're part of the origin story. The green cat watches from the crater's edge, purring in approval."></p>
+          <div class="adventure-choices">
+            <button class="adventure-btn" data-goto="4">Unite and launch $GREENCAT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Finale -->
+      <div class="adventure-card" data-card="4">
+        <div class="adventure-card-img">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=900&h=900&fit=crop" alt="" loading="lazy" />
+          <canvas class="alien-symbols"></canvas>
+        </div>
+        <div class="adventure-card-body">
+          <div class="adventure-step">The Finale</div>
+          <h3 class="adventure-card-title">The Takeover</h3>
+          <p class="adventure-card-text" data-story="$GREENCAT sits at the throne of meme coins — a community of believers, degens, and cosmic wanderers united under the glow. Nine lives means nine rallies. This is only life one. The galaxy is watching. The question is: are you in?"></p>
+          <div class="adventure-choices">
+            <a href="#" class="hero-cta" style="text-align:center;display:block;">
+              <span class="shimmer"></span>
+              <span style="position:relative;z-index:1;">Buy $GREENCAT</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- Divider -->
+  <div class="section-divider">
+    <div class="divider-line"></div>
+    <div class="divider-scan"></div>
+    <div class="divider-glow"></div>
+    <svg class="divider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <use href="#paw-shape" fill="#39ff14"/>
+    </svg>
+    <div class="divider-particles" id="dividerParticles"></div>
+  </div>
 
   <!-- Footer -->
   <footer id="footer">

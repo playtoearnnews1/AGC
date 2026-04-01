@@ -1,3 +1,18 @@
+// Divider particles
+(function() {
+  const container = document.getElementById('dividerParticles');
+  if (!container) return;
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'divider-particle';
+    p.style.left = (8 + Math.random() * 84) + '%';
+    p.style.top = '50%';
+    p.style.animationDelay = (Math.random() * 3) + 's';
+    p.style.animationDuration = (2 + Math.random() * 2) + 's';
+    container.appendChild(p);
+  }
+})();
+
 // Footer animation: arm pushes ball to center, content fades in
 
 (function() {

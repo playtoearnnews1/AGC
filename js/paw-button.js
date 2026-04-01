@@ -36,6 +36,7 @@
           elem.classList.add('confetti');
           setTimeout(function() {
             elem.classList.add('liked');
+            window.open(elem.href, '_blank');
           }, 400);
           setTimeout(function() {
             elem.querySelectorAll('i').forEach(function(el) { el.remove(); });
