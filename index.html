@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$GREENCAT — The Alien Meme Coin</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Orbitron', 'sans-serif'],
+            body: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            alien: { 300: '#39ff14' },
+            void: { 950: '#010204' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="loading">
+
+  <!-- Paw print cursor SVG defs -->
+  <svg id="paw-svg" style="position:fixed;inset:0;width:100%;height:100%;z-index:8998;pointer-events:none;">
+    <defs>
+      <path id="paw-shape" d="M24.04,27.69c-0.79,0.55-1.81,0.8-3.12,0.76c-0.85-0.02-1.71-0.16-2.55-0.4c-1.92-0.55-3.96-0.55-5.88,0
+        c-0.84,0.24-1.7,0.37-2.55,0.4c-0.08,0-0.17,0-0.25,0c-1.19,0-2.13-0.25-2.87-0.77c-1.36-0.94-2.04-2.93-1.57-4.63
+        c0.41-1.51,1.53-2.55,2.61-3.55c0.15-0.13,0.3-0.27,0.44-0.41c1.09-1.04,2.09-2.2,2.97-3.47c0.11-0.16,0.22-0.33,0.33-0.49
+        c0.41-0.62,0.84-1.25,1.37-1.79l0.02-0.02c0.64-0.65,1.51-1.01,2.44-1.01c0.47,0,0.92,0.09,1.33,0.26c0.41,0.17,0.79,0.43,1.11,0.75
+        l0.02,0.02c0.53,0.54,0.96,1.18,1.37,1.79c0.11,0.16,0.22,0.33,0.33,0.49c0.88,1.27,1.87,2.44,2.97,3.47
+        c0.14,0.14,0.3,0.28,0.44,0.41c1.08,1,2.19,2.03,2.61,3.55C26.08,24.76,25.4,26.75,24.04,27.69z M29.95,10.66
+        c-0.17-1.2-0.75-2.1-1.64-2.53c-0.88-0.43-1.85-0.3-2.81,0.39c-0.84,0.61-1.61,1.6-2.24,2.87c-0.62,1.26-0.84,2.29-0.69,3.16
+        c0.15,0.88,0.7,1.55,1.61,2c0.53,0.26,1.07,0.39,1.6,0.39c0.39,0,0.78-0.07,1.15-0.22c0.94-0.36,1.75-1.19,2.33-2.39
+        C29.88,13.12,30.11,11.82,29.95,10.66z M22.76,3.41c-0.63-1.15-1.57-1.84-2.63-1.94c-1.06-0.1-1.99,0.41-2.69,1.47
+        c-0.31,0.47-0.57,1.03-0.76,1.67s-0.33,1.35-0.41,2.12c-0.14,1.52,0.03,2.66,0.51,3.48c0.49,0.83,1.3,1.3,2.4,1.4
+        c0.14,0.01,0.28,0.02,0.42,0.02c0.94,0,1.78-0.31,2.44-0.9c0.81-0.73,1.32-1.88,1.45-3.33C23.64,5.95,23.38,4.53,22.76,3.41z
+        M5.37,8.52C4.42,7.83,3.45,7.7,2.56,8.13C1.68,8.56,1.1,9.46,0.92,10.66C0.76,11.82,1,13.12,1.59,14.34
+        c0.59,1.2,1.39,2.02,2.33,2.39c0.37,0.15,0.76,0.22,1.15,0.22c0.53,0,1.07-0.13,1.6-0.39c0.92-0.45,1.46-1.12,1.61-2
+        c0.15-0.87-0.07-1.9-0.69-3.16C6.98,10.12,6.21,9.12,5.37,8.52z M13.44,2.95c-0.7-1.06-1.63-1.57-2.69-1.47
+        c-1.06,0.1-2,0.79-2.63,1.94c-0.61,1.11-0.87,2.53-0.74,4c0.13,1.44,0.64,2.59,1.45,3.33c0.66,0.59,1.5,0.9,2.44,0.9
+        c0.14,0,0.28-0.01,0.42-0.02c1.1-0.1,1.91-0.57,2.4-1.4c0.38-0.63,0.56-1.46,0.56-2.5c0-0.31-0.02-0.63-0.05-0.98
+        C14.46,5.2,14.06,3.89,13.44,2.95z"/>
+      <symbol id="paw-left" viewBox="0 0 100 100">
+        <rect x="0" y="0" width="100" height="100" fill="none"/>
+        <use href="#paw-shape" fill="#39ff14"/>
+      </symbol>
+      <symbol id="paw-right" viewBox="0 0 100 100">
+        <rect x="0" y="0" width="100" height="100" fill="none"/>
+        <g transform="scale(-1, 1) translate(-100, 0)">
+          <use href="#paw-shape" fill="#39ff14"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress">
+    <div class="scroll-progress-fill" id="scrollFill">
+      <svg class="scroll-asteroid" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2 L21 4 L27 7 L30 13 L28 19 L25 24 L20 28 L14 30 L8 27 L4 22 L2 16 L3 10 L7 5 L12 3 Z" fill="#1a5c0a" stroke="#39ff14" stroke-width="0.8"/>
+        <path d="M10 10 Q12 8 14 10 Q12 13 10 10 Z" fill="#0d3a05" opacity="0.7"/>
+        <path d="M19 14 Q22 12 23 15 Q21 17 19 14 Z" fill="#0d3a05" opacity="0.6"/>
+        <path d="M13 19 Q15 17 16 20 Q14 22 13 19 Z" fill="#0d3a05" opacity="0.5"/>
+        <path d="M8 8 L10 6 L13 7 L11 10 Z" fill="#39ff14" opacity="0.25"/>
+        <path d="M20 9 L23 10 L22 13 L19 11 Z" fill="#39ff14" opacity="0.2"/>
+        <path d="M15 22 L18 23 L17 26 L14 24 Z" fill="#39ff14" opacity="0.15"/>
+        <path d="M12 3 L16 2 L21 4 L17 5 L13 4 Z" fill="#39ff14" opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <canvas id="starfield"></canvas>
+    <canvas id="particle-text"></canvas>
+  </div>
+
+  <!-- Reveal curtains -->
+  <div class="reveal-left"></div>
+  <div class="reveal-right"></div>
+
+  <!-- Hero -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge">Built different. Born alien.</div>
+      <h1 class="hero-title">
+        <span class="green">$GREEN</span>CAT
+      </h1>
+      <p class="hero-subtitle">
+        From a galaxy far beyond the blockchain — the first meme coin with nine lives and zero gravity.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="hero-cta">
+          <span class="shimmer"></span>
+          <span style="position:relative;z-index:1;">Buy $GREENCAT</span>
+        </a>
+        <a href="#story" class="hero-cta-secondary">Read the Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section id="story">
+    <div class="story-container">
+      <div class="story-header">
+        <div class="story-label">The Origin</div>
+        <h2 class="story-title">How It All Began</h2>
+      </div>
+      <div class="story-track-wrapper">
+        <div class="story-track">
+          <div class="story-panel">
+            <div class="story-orb" style="top:10%;right:10%;"></div>
+            <div class="story-card" data-step="1">
+              <div class="story-step-number">01</div>
+              <div class="story-card-inner">
+                <div class="story-icon">🌌</div>
+                <h3 class="story-card-title">The Crash Landing</h3>
+                <p class="story-card-desc">In the outer rim of the Solana nebula, a tiny green cat crash-landed on Earth inside a meteorite made of pure cryptographic energy. No one knew where it came from. No one could explain the glow.</p>
+              </div>
+            </div>
+          </div>
+          <div class="story-panel">
+            <div class="story-orb" style="bottom:15%;left:5%;"></div>
+            <div class="story-card" data-step="2">
+              <div class="story-step-number">02</div>
+              <div class="story-card-inner">
+                <div class="story-icon">🧬</div>
+                <h3 class="story-card-title">The Mutation</h3>
+                <p class="story-card-desc">Earth's atmosphere triggered a mutation — the cat's fur turned neon green and its eyes began emitting blockchain hashes. Every purr minted a token. Every meow was a transaction. The $GREENCAT was born.</p>
+              </div>
+            </div>
+          </div>
+          <div class="story-panel">
+            <div class="story-orb" style="top:20%;left:15%;"></div>
+            <div class="story-card" data-step="3">
+              <div class="story-step-number">03</div>
+              <div class="story-card-inner">
+                <div class="story-icon">📡</div>
+                <h3 class="story-card-title">The Signal</h3>
+                <p class="story-card-desc">The cat broadcasted a signal across every wallet on every chain. A single message in hex that decoded to: "Buy the dip, human." Thousands of degens answered the call within minutes.</p>
+              </div>
+            </div>
+          </div>
+          <div class="story-panel">
+            <div class="story-orb" style="bottom:10%;right:15%;"></div>
+            <div class="story-card" data-step="4">
+              <div class="story-step-number">04</div>
+              <div class="story-card-inner">
+                <div class="story-icon">🚀</div>
+                <h3 class="story-card-title">The Takeover</h3>
+                <p class="story-card-desc">Now $GREENCAT sits at the throne of meme coins — a community of believers, degens, and cosmic wanderers. Nine lives means nine rallies. This is only life one. The galaxy is watching.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="story-progress" id="storyProgress">
+      <div class="story-dot active" data-dot="0"></div>
+      <div class="story-dot" data-dot="1"></div>
+      <div class="story-dot" data-dot="2"></div>
+      <div class="story-dot" data-dot="3"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-stage">
+      <img class="footer-arm" id="footerArm" src="brand_assets/paw-arm.png" alt="" />
+      <div class="footer-ball" id="footerBall">
+        <img src="brand_assets/green-alien-cat-512x512.png" alt="$GREENCAT" />
+      </div>
+    </div>
+    <div class="footer-content" id="footerContent">
+      <h3 class="footer-name"><span class="green">$GREEN</span>CAT</h3>
+      <p class="footer-tagline">Nine lives. Zero gravity. One community.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">&copy; 2026 $GREENCAT. All rights reserved across all galaxies.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/preloader.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/story.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/paws.js"></script>
+  <script src="js/scroll-progress.js"></script>
+</body>
+</html>
