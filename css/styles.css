@@ -470,15 +470,6 @@ body.loading {
   object-fit: cover;
 }
 
-.adventure-card-img canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.08;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
 
 .adventure-card-img::after {
   content: '';
@@ -498,6 +489,22 @@ body.loading {
   position: relative;
   overflow-y: auto;
 }
+
+.adventure-card-body canvas.alien-symbols {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.adventure-step,
+.adventure-card-title,
+.adventure-card-text,
+.adventure-choices,
+.adventure-skip { position: relative; z-index: 1; }
 
 .adventure-card-text {
   font-family: 'Outfit', sans-serif;
