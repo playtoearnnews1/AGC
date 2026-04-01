@@ -218,7 +218,12 @@ body.loading {
 }
 
 /* ===== STORY ===== */
-#story { position: relative; padding: 0 0 150px; }
+#story {
+  position: relative;
+  padding: 0 0 200px;
+  display: flex;
+  justify-content: center;
+}
 
 .story-container { position: relative; width: 100%; }
 
@@ -243,11 +248,47 @@ body.loading {
   letter-spacing: -0.02em;
 }
 
-/* Adventure viewport */
+/* Adventure viewport — alien card container */
 .adventure-viewport {
   position: relative;
-  width: 100%;
+  width: 90vw;
+  max-width: 1400px;
   min-height: 100vh;
+  border: 1px solid rgba(57, 255, 20, 0.15);
+  border-radius: 40px 8px 40px 8px;
+  overflow: hidden;
+  box-shadow:
+    0 0 40px rgba(57, 255, 20, 0.04),
+    0 0 80px rgba(57, 255, 20, 0.02),
+    inset 0 0 60px rgba(57, 255, 20, 0.02);
+  background: rgba(57, 255, 20, 0.01);
+}
+
+/* Corner accents */
+.adventure-viewport::before,
+.adventure-viewport::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(57, 255, 20, 0.3);
+  border-style: solid;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.adventure-viewport::before {
+  top: 12px;
+  left: 12px;
+  border-width: 2px 0 0 2px;
+  border-radius: 6px 0 0 0;
+}
+
+.adventure-viewport::after {
+  bottom: 12px;
+  right: 12px;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 6px 0;
 }
 
 /* Start screen */
@@ -272,6 +313,10 @@ body.loading {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+.adventure-start .adventure-start-bg {
+  border-radius: 40px 8px 40px 8px;
 }
 
 .adventure-start-bg {
@@ -348,13 +393,14 @@ body.loading {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   overflow: hidden;
+  border-radius: 40px 8px 40px 8px;
 }
 
 .adventure-card.active {
