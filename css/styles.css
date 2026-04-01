@@ -218,7 +218,7 @@ body.loading {
 }
 
 /* ===== STORY ===== */
-#story { position: relative; padding: 0 0 50px; }
+#story { position: relative; padding: 0 0 150px; }
 
 .story-container { position: relative; width: 100%; }
 
