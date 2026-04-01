@@ -1016,8 +1016,8 @@ body.loading {
 
 @media (max-width: 768px) {
   .footer-stage { height: 220px; }
-  .footer-arm { left: 20px; height: 200px; }
-  .footer-ball { width: 80px; height: 80px; left: 100px; top: 140px; }
+  .footer-arm { left: 10px; height: 200px; }
+  .footer-ball { width: 80px; height: 80px; left: 60px; top: 140px; }
 }
 
 /* ===== PAW FOLLOW BUTTON (original structure, green theme) ===== */
