@@ -284,13 +284,16 @@
       if (pi < ptParticles.length) { p = ptParticles[pi]; p.isKilled = false; }
       else {
         p = new Particle();
-        p.pos.x = Math.random() * ptW;
-        p.pos.y = Math.random() * ptH;
-        // Faster on mobile so text forms before dispersal
+        // Constrain spawn area so particles don't spawn miles away on big screens
         const isMobile = ptW < 600;
-        p.maxSpeed = isMobile ? Math.random() * 3 + 2.5 : Math.random() * 1.5 + 1.0;
-        p.maxForce = p.maxSpeed * (isMobile ? 0.06 : 0.03);
-        p.colorBlendRate = isMobile ? Math.random() * 0.02 + 0.008 : Math.random() * 0.008 + 0.002;
+        const spawnRadius = Math.min(Math.max(ptW, ptH) * 0.5, 700);
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * spawnRadius + 100;
+        p.pos.x = ptW / 2 + Math.cos(angle) * dist;
+        p.pos.y = ptH / 2 + Math.sin(angle) * dist;
+        p.maxSpeed = isMobile ? Math.random() * 3 + 3.5 : Math.random() * 4 + 5.5;
+        p.maxForce = p.maxSpeed * (isMobile ? 0.08 : 0.1);
+        p.colorBlendRate = Math.random() * 0.025 + 0.015;
         ptParticles.push(p);
       }
       p.startColor = { r: p.startColor.r + (p.targetColor.r - p.startColor.r) * p.colorWeight, g: p.startColor.g + (p.targetColor.g - p.startColor.g) * p.colorWeight, b: p.startColor.b + (p.targetColor.b - p.startColor.b) * p.colorWeight };
