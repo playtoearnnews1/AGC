@@ -121,6 +121,16 @@
   window.addEventListener('resize', resize);
 })();
 
+// Hero badge glitch effect — every 6 seconds
+(function() {
+  var badge = document.getElementById('heroBadge');
+  if (!badge) return;
+  setInterval(function() {
+    badge.classList.add('glitching');
+    setTimeout(function() { badge.classList.remove('glitching'); }, 450);
+  }, 6000);
+})();
+
 // Hero entrance — called by preloader after reveal
 window.heroEntrance = function() {
   document.querySelector('.hero-content').style.visibility = 'visible';
